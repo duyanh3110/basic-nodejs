@@ -12,7 +12,9 @@ app.set("views", "./views")
 app.use(bodyParser.json()) //  for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-app.get("/", (req, res) => res.send("Hello World!"))
+app.use(express.static("public"))
+
+app.get("/", (req, res) => res.render("index", { name: "Duy Anh" }))
 
 app.use("/users", userRoute)
 
