@@ -3,6 +3,9 @@ const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 
 const userRoute = require("./routes/user.route")
+const authRoute = require("./routes/auth.route")
+
+const authMiddleware = require("./middlewares/auth.middleware")
 
 const port = 5000
 
@@ -18,6 +21,7 @@ app.use(express.static("public"))
 
 app.get("/", (req, res) => res.render("index", { name: "Duy Anh" }))
 
-app.use("/users", userRoute)
+app.use("/users", authMiddleware.requireAuth, userRoute)
+app.use("/auth", authRoute)
 
 app.listen(port, () => console.log("Running in port " + port))
